@@ -3,7 +3,7 @@
 ![maven](https://img.shields.io/badge/python-3.8%2B-blue)
 ![maven](https://img.shields.io/badge/nonebot-2.0.0-yellow)
 ![maven](https://img.shields.io/badge/go--cqhttp-1.0.0-red)
- 
+#### 真寻bot的插件库
 弟中弟垃圾代码制造者编写的符合 **真寻bot** 标准的插件（如有侵权请联系删除  
 稍微修改也可在nonebot2平台通用(大概)
 ## 真寻bot项目[传送门](https://github.com/HibiKier/zhenxun_bot)
