@@ -1,6 +1,7 @@
 
-# OVOU4-nonebot_plugins_zhenxun_bot
+# nonebot_plugins_zhenxun_bot
 弟中弟垃圾代码制造者编写的符合 **真寻bot** 标准的插件（如有侵权请联系删除  
+稍微修改也可在nonebot2平台通用(大概)
 ## 真寻bot项目[传送门](https://github.com/HibiKier/zhenxun_bot)
 对该仓库插件如有问题可发送邮件至 ***zyangyang2000@outlook.com*** 
 ## 更新
