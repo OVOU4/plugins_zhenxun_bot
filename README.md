@@ -12,6 +12,9 @@
 ## 其他提供符合真寻标准的插件仓库
 [AkashiCoin/nonebot_plugins_zhenxun_bot](https://github.com/AkashiCoin/nonebot_plugins_zhenxun_bot)
 ## 更新
+#### 2022/2/11
+* 随机图片 `/acgimage`
+* coser(更新API) `/coser`
 #### 2022/2/10
 * github仓库查询 `/github`
 * 老黄历 `/huangli`
