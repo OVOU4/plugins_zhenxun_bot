@@ -8,6 +8,9 @@
 稍微修改也可在nonebot2平台通用(大概)
 ## 真寻bot项目[传送门](https://github.com/HibiKier/zhenxun_bot)
 对该仓库插件如有问题可发送邮件至 ***zyangyang2000@outlook.com*** 
+
+## 其他提供符合真寻标准的插件仓库
+[AkashiCoin/nonebot_plugins_zhenxun_bot](https://github.com/AkashiCoin/nonebot_plugins_zhenxun_bot)
 ## 更新
 #### 2022/2/10
 * github仓库查询 `/github`
