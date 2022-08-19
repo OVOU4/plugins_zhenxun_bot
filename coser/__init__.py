@@ -1,6 +1,6 @@
-from nonebot import on_command
+from nonebot import on_regex
 from nonebot.typing import T_State
-from nonebot.adapters.cqhttp import Bot, MessageEvent
+from nonebot.adapters.onebot.v11 import Bot, MessageEvent
 from utils.message_builder import image
 from services.log import logger
 from utils.manager import withdraw_message_manager
@@ -32,9 +32,7 @@ __plugin_configs__ = {
     },
 }
 
-coser = on_command(
-    "cos", aliases={"coser", "括丝", "COS", "Cos", "cOS", "coS"}, priority=5, block=True
-)
+coser = on_regex("^(cos|COS|coser|括丝)$", priority=5, block=True)
 
 url1 = "https://api.iyk0.com/cos"
 url2 = 'https://api.nmb.show/xiaojiejie1.php'
