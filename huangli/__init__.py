@@ -3,10 +3,7 @@ from datetime import datetime
 import re
 from nonebot import on_command
 from nonebot.typing import T_State
-from nonebot.adapters.cqhttp import (
-    Bot,
-    MessageEvent,
-)
+from nonebot.adapters.onebot.v11 import Bot, MessageEvent
 # 基于lunar项目的黄历演算
 # github项目地址：https://github.com/6tail/lunar-python
 # gitee项目地址：https://gitee.com/6tail/lunar-python
