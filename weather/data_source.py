@@ -1,4 +1,4 @@
-import httpx
+from utils.http_utils import AsyncHttpx
 import re
 import psutil
 import os
@@ -15,7 +15,7 @@ async def weatherx(city: str) -> str:
     :param city: 城市
     """
     url = 'https://www.tianqi.com/tianqi/ctiy?keyword=' + city
-    result = httpx.get(url, headers=header)
+    result = AsyncHttpx.get(url, headers=header)
     try:
         a = str(re.compile(r'url":"(.*?)/"}').findall(result.text)[0])
         b = re.sub(r'\\', '', a)  # 获取查询城市的地址
@@ -31,7 +31,7 @@ async def weatherweb(url: str) -> str:
     :param url: 城市网址地址
     """
     # 获取城市天气页面
-    city_weather_web = httpx.get(url, headers=header).text
+    city_weather_web = AsyncHttpx.get(url, headers=header).text
     try:
         c = str(re.compile(r'/chinacity.html" title="(.*?)">').findall(city_weather_web)[1])  # 获取标题(查询为一个城市时，例如柳州市)
     except IndexError:

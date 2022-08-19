@@ -1,11 +1,11 @@
 from nonebot import on_regex
 from .data_source import weatherx ,weatherweb
-from nonebot.adapters.cqhttp import Bot, MessageEvent, GroupMessageEvent
+from nonebot.adapters.onebot.v11 import MessageEvent, GroupMessageEvent
 from jieba import posseg
 from services.log import logger
-from nonebot.typing import T_State
 import re
-from utils.utils import get_message_text
+from nonebot.params import RegexGroup
+from typing import Tuple, Any
 
 
 __zx_plugin_name__ = "天气查询"
@@ -28,20 +28,13 @@ __plugin_settings__ = {
 }
 
 
-weather = on_regex(r".{0,10}市?的?天气.{0,10}", priority=5, block=True)
+weather = on_regex(r".{0,10}?(.*)的?天气.*?.{0,10}", priority=5, block=True)
 
 @weather.handle()
-async def _(bot: Bot, event: MessageEvent, state: T_State):
-    msg = get_message_text(event.json())
-    msg1 = re.search(r".*?(.*)市?的?天气.*?", msg)
-    msg2 = re.search(r".*?天气(.*).*?", msg)
-    msg1 = msg1.group(1)
-    msg2 = msg2.group(1)
-    msg = msg1 if msg1 else msg2
-    #if msg[-1] == "的":
-    #    msg = msg[:-1]
-    #if msg[-1] != "市":
-    #    msg += "市"
+async def _(event: MessageEvent, reg_group: Tuple[Any, ...] = RegexGroup()):
+    msg = reg_group[0]
+    if msg[-1] != "市":
+        msg += "市"
     city = ""
     if msg:
         for word in posseg.lcut(msg):
