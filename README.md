@@ -12,6 +12,8 @@
 ## 其他提供符合真寻标准的插件仓库
 [AkashiCoin/nonebot_plugins_zhenxun_bot](https://github.com/AkashiCoin/nonebot_plugins_zhenxun_bot)
 ## 更新
+#### 2022/8/20
+* 百度百科 `/baidu`
 #### 2022/8/19
 * 适配新版真寻[v0.1.6.2]
 * 修改AI插件 `/ai`
