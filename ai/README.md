@@ -8,4 +8,4 @@ GPT-2模型接口：127.0.0.1:5000/?key_word=text
 ## 若要使用GPT-2模型进行本地人机对话请使用另一个项目搭建[GPT-2本地服务器](https://github.com/OVOU4/zhenxunbot_GPT-2)  
 有时候会出现一些奇怪的回答，这个是模型的问题
 ### 效果展示
-![image](ai/1660958277122.jpg)
+![image](1660958277122.jpg)
