@@ -1,7 +1,7 @@
 from utils.http_utils import httpx
 import re
 import os
-from pathlib import Path
+from configs.path_config import TEXT_PATH
 
 url = 'https://shindanmaker.com/'
 
@@ -19,8 +19,8 @@ async def huoqu():
     y = re.compile(r'_session=(.*?) for .shindanmaker.com').findall(a)[0]
     cookie = '_session=' + y + ';' + 'name=' + x
     # 写入token
-    filename = 'token.txt'
-    COOKIE = "COOKIE.txt"
+    filename = TEXT_PATH / 'token.txt'
+    COOKIE = TEXT_PATH / "COOKIE.txt"
     with open(filename, 'w') as file_object:
         file_object.write(token)
         file_object.close()
@@ -32,8 +32,8 @@ async def huoqu():
 
 # 异世界转生
 async def yishijie(id):
-    tr = open("token.txt", 'r')
-    fr = open("COOKIE.txt", 'r')
+    tr = open(TEXT_PATH / "token.txt", 'r')
+    fr = open(TEXT_PATH / "COOKIE.txt", 'r')
     cookie = fr.read()
     token = tr.read()
     tr.close()
@@ -58,8 +58,8 @@ async def yishijie(id):
 
 # 今天是什么少女
 async def jintian(id):  #
-    tr = open("token.txt", 'r')
-    fr = open("COOKIE.txt", 'r')
+    tr = open(TEXT_PATH / "token.txt", 'r')
+    fr = open(TEXT_PATH / "COOKIE.txt", 'r')
     cookie = fr.read()
     token = tr.read()
     tr.close()
@@ -82,8 +82,8 @@ async def jintian(id):  #
 
 # 卖萌
 async def maimeng(id):
-    tr = open("token.txt", 'r')
-    fr = open("COOKIE.txt", 'r')
+    tr = open(TEXT_PATH / "token.txt", 'r')
+    fr = open(TEXT_PATH / "COOKIE.txt", 'r')
     cookie = fr.read()
     token = tr.read()
     tr.close()
@@ -106,8 +106,8 @@ async def maimeng(id):
 
 # 抽老婆
 async def laopo(id):
-    tr = open("token.txt", 'r')
-    fr = open("COOKIE.txt", 'r')
+    tr = open(TEXT_PATH / "token.txt", 'r')
+    fr = open(TEXT_PATH / "COOKIE.txt", 'r')
     cookie = fr.read()
     token = tr.read()
     tr.close()
@@ -135,8 +135,8 @@ async def laopo(id):
 
 # 特殊能力
 async def power(id):
-    tr = open("token.txt", 'r')
-    fr = open("COOKIE.txt", 'r')
+    tr = open(TEXT_PATH / "token.txt", 'r')
+    fr = open(TEXT_PATH / "COOKIE.txt", 'r')
     cookie = fr.read()
     token = tr.read()
     tr.close()
