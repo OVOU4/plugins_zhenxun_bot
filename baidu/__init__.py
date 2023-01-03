@@ -1,3 +1,4 @@
+# coding=utf-8
 from nonebot import on_command
 from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Bot, MessageEvent, Message
@@ -23,10 +24,10 @@ __plugin_settings__ = {
     "level": 5,
     "default_status": True,
     "limit_superuser": False,
-    "cmd": ["百度"],
+    "cmd": ["百度", "百度百科"],
 }
 
-baidu = on_command("百度", priority=5, block=True)
+baidu = on_command("百度", aliases={"百度百科"}, priority=5, block=True)
 
 
 @baidu.handle()
