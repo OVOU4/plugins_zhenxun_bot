@@ -35,10 +35,10 @@ __plugin_configs__ = {
 coser = on_regex("^(cos|COS|coser|括丝)$", priority=5, block=True)
 
 url1 = "https://api.btstu.cn/sjbz/api.php"
-url2 = 'https://www.cnmdsb.cn/api/cos/get.php'
+# url2 = 'https://www.cnmdsb.cn/api/cos/get.php'
 url3 = 'https://picture.yinux.workers.dev'
 url4 ='https://api.jrsgslb.cn/cos/url.php?return=img'
-foo = [url1, url2, url3, url4]
+foo = [url1, url3, url4]
 
 
 @coser.handle()
