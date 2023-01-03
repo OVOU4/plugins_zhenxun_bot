@@ -12,6 +12,10 @@
 ## 其他提供符合真寻标准的插件仓库
 [AkashiCoin/nonebot_plugins_zhenxun_bot](https://github.com/AkashiCoin/nonebot_plugins_zhenxun_bot)
 ## 更新
+#### 2023/1/3
+* 今日运势 `/nonebot_plugin_fortune`
+* 哔哩哔哩主题塔罗牌抽签 `/tarot`
+* 人生重开 `/lifeRestart`
 #### 2022/8/20
 * 百度百科 `/baidu`
 #### 2022/8/19
