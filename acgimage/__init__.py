@@ -12,7 +12,6 @@ usage：
     随机图片
     指令: 
 	随机图片
-	直接随机(无r18检测，务必小心，非常危险)
 """.strip()
 __plugin_des__ = "随机图片"
 __plugin_cmd__ = ["随机图片", "直接随机"]
@@ -36,14 +35,11 @@ suiji = on_command(
 
 #url = 'https://sayuri.fumiama.top/dice/?class=1&loli=true'
 url1 = 'https://img.xjh.me/random_img.php'
-url2 = 'https://api.ghser.com/random/pc.php'
 url3 = 'https://api.btstu.cn/sjbz/api.php?lx=dongman&format=images'
 url4 = 'https://www.dmoe.cc/random.php'
 url5 = 'https://img.xjh.me/random_img.php?return=302'
-url6 = 'https://api.mtyqx.cn/tapi/random.php'
-url7 = 'https://service-5z0sdahv-1306777571.sh.apigw.tencentcs.com/release/'
 #urlr18 = 'https://sayuri.fumiama.top/dice/?class=1&loli=true&r18=ture'
-foo = [url2, url1, url3, url6, url5, url7, url4]
+foo = [url1, url3, url5, url4]
 
 
 # 随机图片
