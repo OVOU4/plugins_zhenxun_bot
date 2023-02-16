@@ -30,8 +30,8 @@ async def huoqu():
         u.close()
 
 
-# 异世界转生
-async def yishijie(id):
+#填入请求头
+def cookietoken(id):
     tr = open(TEXT_PATH / "token.txt", 'r')
     fr = open(TEXT_PATH / "COOKIE.txt", 'r')
     cookie = fr.read()
@@ -48,80 +48,51 @@ async def yishijie(id):
         'cookie': cookie,
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36 Edg/96.0.1054.29'
     }
+    return params, header
+
+
+# 异世界转生
+async def yishijie(id):
+    x = cookietoken(id)
+    params = x[0]
+    header = x[1]
     urls = url + "587874"
     r = httpx.post(urls, headers=header, params=params)
-    e = str(re.compile(r'id="copy-textarea-all" rows="5">(.*?)&#10;#shindanmaker&#10;').findall(r.text)[0])
+    e = str(re.compile(r'textarea-all" rows="5">(.*?)&#10;#shindanmaker&#10;').findall(r.text)[0])
     x = re.sub(r'&#10;', "\n", e)
-    y = re.sub(r"</span>|amp;", "", x)
-    return y
+    y = re.sub(r"&nbsp;", " ", x)
+    z = re.sub(r'&amp;', '&', y)
+    return z
 
 
 # 今天是什么少女
 async def jintian(id):  #
-    tr = open(TEXT_PATH / "token.txt", 'r')
-    fr = open(TEXT_PATH / "COOKIE.txt", 'r')
-    cookie = fr.read()
-    token = tr.read()
-    tr.close()
-    fr.close()
-    params = ({
-        '_token': token,
-        'shindanName': id,
-        'hiddenName': '名無しのY'
-    })
-    header = {
-        'content-type': 'application/x-www-form-urlencoded',
-        'cookie': cookie,
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36 Edg/96.0.1054.29'
-    }
+    x = cookietoken(id)
+    params = x[0]
+    header = x[1]
     urls = url + "162207"
     r = httpx.post(urls, headers=header, params=params)
-    e = str(re.compile(r'textarea" id="copy-textarea-140" rows="5">(.*?)&#10;#shindanmaker&#10;').findall(r.text)[0])
+    e = str(re.compile(r'textarea" id="copy-textarea-140" rows="5">(.*?)&#10').findall(r.text)[0])
     return e
 
 
 # 卖萌
 async def maimeng(id):
-    tr = open(TEXT_PATH / "token.txt", 'r')
-    fr = open(TEXT_PATH / "COOKIE.txt", 'r')
-    cookie = fr.read()
-    token = tr.read()
-    tr.close()
-    fr.close()
-    params = ({
-        '_token': token,
-        'shindanName': id,
-        'hiddenName': '名無しのY'
-    })
-    header = {
-        'content-type': 'application/x-www-form-urlencoded',
-        'cookie': cookie,
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36 Edg/96.0.1054.29'
-    }
+    x = cookietoken(id)
+    params = x[0]
+    header = x[1]
     urls = url + "360578"
     r = httpx.post(urls, headers=header, params=params)
-    e = str(re.compile(r'style="display: none;">(.*?)&#10;&#10;#kaomoji #shindanmaker&#10;').findall(r.text)[0])
-    return e
+    e = str(re.compile(r'-textarea" style="display: none;">(.*?)&#10;&#10').findall(r.text)[0])
+    y = re.sub(r"&nbsp;", " ", e)
+    return y
 
 
 # 抽老婆
 async def laopo(id):
-    tr = open(TEXT_PATH / "token.txt", 'r')
-    fr = open(TEXT_PATH / "COOKIE.txt", 'r')
-    cookie = fr.read()
-    token = tr.read()
-    tr.close()
-    fr.close()
-    params = ({
-        '_token': token,
-        'shindanName': id,
-        'hiddenName': '名無しのY'
-    })
-    header = {
-        'content-type': 'application/x-www-form-urlencoded',
-        'cookie': cookie,
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36 Edg/96.0.1054.29'
-    }
+    x = cookietoken(id)
+    params = x[0]
+    header = x[1]
     urls = url + "1075116"
     r = httpx.post(urls, headers=header, params=params)
     text = str(
@@ -135,25 +106,12 @@ async def laopo(id):
 
 # 特殊能力
 async def power(id):
-    tr = open(TEXT_PATH / "token.txt", 'r')
-    fr = open(TEXT_PATH / "COOKIE.txt", 'r')
-    cookie = fr.read()
-    token = tr.read()
-    tr.close()
-    fr.close()
-    params = ({
-        '_token': token,
-        'shindanName': id,
-        'hiddenName': '名無しのY'
-    })
-    header = {
-        'content-type': 'application/x-www-form-urlencoded',
-        'cookie': cookie,
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36 Edg/96.0.1054.29'
-    }
+    x = cookietoken(id)
+    params = x[0]
+    header = x[1]
     urls = url + "1110781"
     r = httpx.post(urls, headers=header, params=params)
-    e = str(re.compile(r'class="shindanResult_name">(.*?)</span>                </span>').findall(r.text)[0])
+    e = str(re.compile(r'class="shindanResult_name">(.*?)</div></div>').findall(r.text)[0])
     y = re.sub(r"</span>", "", e)
     text = re.sub(r"<br />", "\n", y)
     return text
