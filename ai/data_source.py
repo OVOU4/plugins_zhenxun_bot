@@ -1,11 +1,13 @@
 import os
 import random
 import re
-from utils.http_utils import AsyncHttpx
-from configs.path_config import IMAGE_PATH, DATA_PATH
+
+from configs.config import NICKNAME, Config
+from configs.path_config import DATA_PATH, IMAGE_PATH
 from services.log import logger
-from utils.message_builder import image, face
-from configs.config import Config, NICKNAME
+from utils.http_utils import AsyncHttpx
+from utils.message_builder import face, image
+
 from .utils import ai_message_manager
 
 try:
@@ -126,7 +128,9 @@ async def xie_ai(text: str) -> str:
     :param text: 问题
     :return: 青云可回复
     """
-    res = await AsyncHttpx.get(f"http://api.qingyunke.com/api.php?key=free&appid=0&msg={text}")
+    res = await AsyncHttpx.get(
+        f"http://api.qingyunke.com/api.php?key=free&appid=0&msg={text}"
+    )
     content = ""
     try:
         data = json.loads(res.text)
@@ -178,9 +182,9 @@ def hello() -> str:
     )
     img = random.choice(os.listdir(IMAGE_PATH / "zai"))
     if img[-4:] == ".gif":
-        result += image(img, "zai")
+        result += image(IMAGE_PATH / "zai" / img)
     else:
-        result += image(img, "zai")
+        result += image(IMAGE_PATH / "zai" / img)
     return result
 
 
@@ -189,17 +193,16 @@ def no_result() -> str:
     """
     没有回答时的回复
     """
-    return (
-        random.choice(
-            [
-                "你在说啥子？",
-                f"纯洁的{NICKNAME}没听懂",
-                "下次再告诉你(下次一定)",
-                "你觉得我听懂了吗？嗯？",
-                "我！不！知！道！",
-            ]
-        )
-        + image(random.choice(os.listdir(IMAGE_PATH / "noresult")), "noresult")
+    return random.choice(
+        [
+            "你在说啥子？",
+            f"纯洁的{NICKNAME}没听懂",
+            "下次再告诉你(下次一定)",
+            "你觉得我听懂了吗？嗯？",
+            "我！不！知！道！",
+        ]
+    ) + image(
+        IMAGE_PATH / "noresult" / random.choice(os.listdir(IMAGE_PATH / "noresult"))
     )
 
 
@@ -228,7 +231,8 @@ async def GTP2(text:str) -> str:
     :return: 回复
     """
     try:
-        res = await AsyncHttpx.get(f'http://127.0.0.1:5000/?key_word={text}').text
+        res = (await AsyncHttpx.get(f'http://127.0.0.1:5000/?key_word={text}')).text
         return res
-    except Exception :
-        return ''
+    except Exception as e:
+        logger.error(f"本地GPT-2模型回复发生错误 {type(e)}：{e}")
+        return ""
