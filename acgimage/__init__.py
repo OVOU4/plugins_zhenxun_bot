@@ -5,6 +5,9 @@ from nonebot.adapters.onebot.v11 import Bot, MessageEvent
 from utils.message_builder import image
 from services.log import logger
 import random
+from utils.manager import withdraw_message_manager
+from configs.config import Config
+
 
 __zx_plugin_name__ = "随机图片"
 __plugin_usage__ = """
@@ -12,6 +15,7 @@ usage：
     随机图片
     指令: 
 	随机图片
+	直接随机(无r18检测，务必小心，非常危险)
 """.strip()
 __plugin_des__ = "随机图片"
 __plugin_cmd__ = ["随机图片", "直接随机"]
@@ -25,9 +29,15 @@ __plugin_settings__ = {
     "cmd": ["随机图片"],
 }
 
-suiji = on_command(
-    "随机图片", aliases={"随机图片"}, priority=5, block=True
-)
+__plugin_configs__ = {
+    "WITHDRAW_随机图片_MESSAGE": {
+        "value": (0, 2),
+        "help": "自动撤回，参1：延迟撤回色图时间(秒)，0 为关闭 | 参2：监控聊天类型，0(私聊) 1(群聊) 2(群聊+私聊)",
+        "default_value": (0, 2),
+    },
+}
+
+suiji = on_command("随机图片", aliases={"随机图片"}, priority=5, block=True)
 
 #suijir18 = on_command(
 #    "直接随机图片", aliases={"直接随机图片"}, priority=5, block=True
@@ -35,11 +45,14 @@ suiji = on_command(
 
 #url = 'https://sayuri.fumiama.top/dice/?class=1&loli=true'
 url1 = 'https://img.xjh.me/random_img.php'
-url3 = 'https://api.btstu.cn/sjbz/api.php?lx=dongman&format=images'
+url2 = 'https://api.ghser.com/random/pc.php'
+url3 = 'http://www.98qy.com/sjbz/api.php'
 url4 = 'https://www.dmoe.cc/random.php'
 url5 = 'https://img.xjh.me/random_img.php?return=302'
+url6 = 'https://t.lizi.moe/pc'
+url7 = 'https://service-5z0sdahv-1306777571.sh.apigw.tencentcs.com/release/'
 #urlr18 = 'https://sayuri.fumiama.top/dice/?class=1&loli=true&r18=ture'
-foo = [url1, url3, url5, url4]
+foo = [url2, url1, url3, url6, url5, url7, url4]
 
 
 # 随机图片
@@ -47,9 +60,14 @@ foo = [url1, url3, url5, url4]
 async def _(bot: Bot, event: MessageEvent, state: T_State):
     try:
         await bot.send(event=event, message="少女祈祷中....")
-        await suiji.send(image(random.choice(foo)))
+        msg_id = await suiji.send(image(random.choice(foo)))
+        withdraw_message_manager.withdraw_message(
+                event,
+                msg_id["message_id"],
+                Config.get_config("suiji", "WITHDRAW_随机图片_MESSAGE"),
+            )
     except Exception as e:
-        await suiji.finish("你冲得太多了，休息一下吧！")
+        await suiji.send("你冲得太多了，休息一下吧！")
         logger.error(f"随机图片 发送了未知错误 {type(e)}：{e}")
 
 
@@ -62,28 +80,3 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
 #    except Exception as e:
 #        await suijir18.finish("你冲得太多了，休息一下吧！")
 #        logger.error(f"直接随机图片 发送了未知错误 {type(e)}：{e}")
-
-# 设置随机图片网址
-# @shezhisuiji.handle()
-# async def _(bot: Bot, event: MessageEvent, state: T_State):
-#    try:
-#        args = str(event.get_message()).strip()
-#        if args:
-#            state["words"] = args
-#        url = state["words"]
-#        global url
-#    except Exception as e:
-#        await suijir18.finish("你冲得太多了，休息一下吧！")
-#        logger.error(f"直接随机图片 发送了未知错误 {type(e)}：{e}")
-
-
-# 撤回图片
-# @taisele.handle()
-# async def _(bot: Bot, event: MessageEvent, state: T_State):
-#    try:
-#        withdraw_message_manager.withdraw_message(
-#            event,
-#            msg_id["message_id"])
-#    except Exception as e:
-#        await suijir18.finish("你冲得太多了，休息一下吧！")
-#        logger.error(f"随机图片 发送了未知错误 {type(e)}：{e}")
