@@ -9,18 +9,20 @@ url = 'https://shindanmaker.com/'
 # 获取token和cookie
 async def huoqu():
     header = {
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36 Edg/96.0.1054.29'
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.47'
     }
     session = httpx.get('https://shindanmaker.com/587874', headers=header)
     # 获取token
     token = re.compile(r'<meta name="csrf-token" content="(.*?)">').findall(session.text)[0]
+    shindan_token = re.compile(r'name="shindan_token" value="(.*?)">').findall(session.text)[0]
     a = str(session.cookies)
     x = re.compile(r'XSRF-TOKEN=(.*?) for .shindanmaker.com').findall(a)[0]
     y = re.compile(r'_session=(.*?) for .shindanmaker.com').findall(a)[0]
-    cookie = '_session=' + y + ';' + 'name=' + x
+    cookie = '_session=' + y + ';' + '__dui=' + x
     # 写入token
     filename = TEXT_PATH / 'token.txt'
     COOKIE = TEXT_PATH / "COOKIE.txt"
+    shindan_tokentxt = TEXT_PATH / 'shindan_token.txt'
     with open(filename, 'w') as file_object:
         file_object.write(token)
         file_object.close()
@@ -28,25 +30,34 @@ async def huoqu():
     with open(COOKIE, 'w') as u:
         u.write(cookie)
         u.close()
+    # 写入shindan_token
+    with open(shindan_tokentxt, 'w') as u:
+        u.write(shindan_token)
+        u.close()
 
 
 #填入请求头
 def cookietoken(id):
     tr = open(TEXT_PATH / "token.txt", 'r')
     fr = open(TEXT_PATH / "COOKIE.txt", 'r')
+    ur = open(TEXT_PATH / "shindan_token.txt", 'r')
     cookie = fr.read()
     token = tr.read()
+    shindan_token = ur.read()
     tr.close()
     fr.close()
+    ur.close()
     params = ({
         '_token': token,
         'shindanName': id,
-        'hiddenName': '名無しのY'
+        'hiddenName': '名無しのY',
+        'type': 'name',
+        'shindan_token': shindan_token
     })
     header = {
         'content-type': 'application/x-www-form-urlencoded',
         'cookie': cookie,
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36 Edg/96.0.1054.29'
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.47'
     }
     return params, header
 
@@ -58,9 +69,9 @@ async def yishijie(id):
     header = x[1]
     urls = url + "587874"
     r = httpx.post(urls, headers=header, params=params)
-    e = str(re.compile(r'textarea-all" rows="5">(.*?)&#10;#shindanmaker&#10;').findall(r.text)[0])
-    x = re.sub(r'&#10;', "\n", e)
-    y = re.sub(r"&nbsp;", " ", x)
+    e = str(re.compile(r'<span class="shindanResult_name">(.*?)</span> </span>').findall(r.text)[0])
+    x = re.sub(r'<br />', "\n", e)
+    y = re.sub(r"&nbsp;|</span>", " ", x)
     z = re.sub(r'&amp;', '&', y)
     return z
 
@@ -72,7 +83,7 @@ async def jintian(id):  #
     header = x[1]
     urls = url + "162207"
     r = httpx.post(urls, headers=header, params=params)
-    e = str(re.compile(r'textarea" id="copy-textarea-140" rows="5">(.*?)&#10').findall(r.text)[0])
+    e = str(re.compile(r'class="post_result bg-light py-2 px-3 text-break">(.*?)</div>').findall(r.text)[0])
     return e
 
 
@@ -83,7 +94,7 @@ async def maimeng(id):
     header = x[1]
     urls = url + "360578"
     r = httpx.post(urls, headers=header, params=params)
-    e = str(re.compile(r'-textarea" style="display: none;">(.*?)&#10;&#10').findall(r.text)[0])
+    e = str(re.compile(r'class="post_result bg-light py-2 px-3 text-break">(.*?)</div>').findall(r.text)[0])
     y = re.sub(r"&nbsp;", " ", e)
     return y
 
