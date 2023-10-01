@@ -45,14 +45,14 @@ suiji = on_command("随机图片", aliases={"随机图片"}, priority=5, block=T
 
 #url = 'https://sayuri.fumiama.top/dice/?class=1&loli=true'
 url1 = 'https://img.xjh.me/random_img.php'
-url2 = 'https://api.ghser.com/random/pc.php'
-url3 = 'http://www.98qy.com/sjbz/api.php'
-url4 = 'https://www.dmoe.cc/random.php'
+url2 = 'https://api.btstu.cn/sjbz/api.php?lx=dongman&format=images'
+url3 = 'https://api.yimian.xyz/img?type=moe'
+url4 = 'https://api.yimian.xyz/img?type=moe&size=1920x1080'
 url5 = 'https://img.xjh.me/random_img.php?return=302'
 url6 = 'https://t.lizi.moe/pc'
-url7 = 'https://service-5z0sdahv-1306777571.sh.apigw.tencentcs.com/release/'
+url7 = 'https://img.paulzzh.com/touhou/random'
 #urlr18 = 'https://sayuri.fumiama.top/dice/?class=1&loli=true&r18=ture'
-foo = [url2, url1, url3, url6, url5, url7, url4]
+foo = [url2, url1, url3, url4, url6, url5, url7]
 
 
 # 随机图片
@@ -80,3 +80,28 @@ async def _(bot: Bot, event: MessageEvent, state: T_State):
 #    except Exception as e:
 #        await suijir18.finish("你冲得太多了，休息一下吧！")
 #        logger.error(f"直接随机图片 发送了未知错误 {type(e)}：{e}")
+
+# 设置随机图片网址
+# @shezhisuiji.handle()
+# async def _(bot: Bot, event: MessageEvent, state: T_State):
+#    try:
+#        args = str(event.get_message()).strip()
+#        if args:
+#            state["words"] = args
+#        url = state["words"]
+#        global url
+#    except Exception as e:
+#        await suijir18.finish("你冲得太多了，休息一下吧！")
+#        logger.error(f"直接随机图片 发送了未知错误 {type(e)}：{e}")
+
+
+# 撤回图片
+# @taisele.handle()
+# async def _(bot: Bot, event: MessageEvent, state: T_State):
+#    try:
+#        withdraw_message_manager.withdraw_message(
+#            event,
+#            msg_id["message_id"])
+#    except Exception as e:
+#        await suijir18.finish("你冲得太多了，休息一下吧！")
+#        logger.error(f"随机图片 发送了未知错误 {type(e)}：{e}")
